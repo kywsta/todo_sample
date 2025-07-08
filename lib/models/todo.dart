@@ -45,24 +45,28 @@ class TodoList extends _$TodoList {
   Future<void> addTodo(String title) async {
     final todoRepository = ref.watch(todoRepositoryProvider);
     await todoRepository.addTodo(title);
-    state = AsyncValue.data(await todoRepository.loadTodos());
+
+    ref.invalidateSelf();
   }
 
   Future<void> toggleTodo(String id) async {
     final todoRepository = ref.watch(todoRepositoryProvider);
     await todoRepository.toggleTodo(id);
-    state = AsyncValue.data(await todoRepository.loadTodos());
+
+    ref.invalidateSelf();
   }
 
   Future<void> updateTodo(Todo todo) async {
     final todoRepository = ref.watch(todoRepositoryProvider);
     await todoRepository.updateTodo(todo);
-    state = AsyncValue.data(await todoRepository.loadTodos());
+
+    ref.invalidateSelf();
   }
 
   Future<void> removeTodo(String id) async {
     final todoRepository = ref.watch(todoRepositoryProvider);
     await todoRepository.removeTodo(id);
-    state = AsyncValue.data(await todoRepository.loadTodos());
+
+    ref.invalidateSelf();
   }
 }

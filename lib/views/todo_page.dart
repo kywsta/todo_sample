@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo_sample/models/todo.dart';
+import 'package:todo_sample/views/todo_list_view.dart';
 
 class TodoPage extends ConsumerStatefulWidget {
   const TodoPage({super.key});
@@ -38,34 +39,12 @@ class _TodoPageState extends ConsumerState<TodoPage> {
   }
 
   Widget _buildTodoList() {
-    return TodoList();
+    return TodoListView();
   }
 
   void _addTodo() {
     final todoList = ref.read(todoListProvider.notifier);
     todoList.addTodo(_textEditingController.text);
     _textEditingController.clear();
-  }
-}
-
-class TodoList extends ConsumerWidget {
-  const TodoList({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final todoList = ref.watch(todoListProvider);
-
-    return todoList.when(
-      data: (todos) => ListView.builder(
-        itemCount: todos.length,
-        itemBuilder: (context, index) {
-          debugPrint("Building: ${todos[index].title}");
-          return Text(todos[index].title);
-        },
-      ),
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) =>
-          Center(child: Text("Oops! Something went wrong.")),
-    );
   }
 }
