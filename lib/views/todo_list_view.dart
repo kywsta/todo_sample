@@ -23,6 +23,9 @@ class TodoListView extends ConsumerWidget {
 
           return Dismissible(
             key: ValueKey(todos[index].id),
+            onDismissed: (direction) {
+              ref.read(todoListProvider.notifier).removeTodo(todos[index].id);
+            },
             child: ProviderScope(
               overrides: [
                 _currentTodoProvider.overrideWithValue(todos[index]),
