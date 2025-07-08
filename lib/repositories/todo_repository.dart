@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:todo_sample/app_env.dart';
-import 'package:todo_sample/models/todo.dart';
-import 'package:todo_sample/repositories/in_memory_todo_repository.dart';
+import 'package:riverpod_todo_sample/app_env.dart';
+import 'package:riverpod_todo_sample/models/todo.dart';
+import 'package:riverpod_todo_sample/repositories/in_memory_todo_repository.dart';
 
 part 'todo_repository.g.dart';
 

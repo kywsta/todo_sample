@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:todo_sample/repositories/todo_repository.dart';
+import 'package:riverpod_todo_sample/repositories/todo_repository.dart';
 
 part 'todo.g.dart';
 

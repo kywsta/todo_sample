@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todo_sample/models/todo.dart';
+import 'package:riverpod_todo_sample/models/todo.dart';
 
 class TodoFilterBar extends ConsumerWidget {
   const TodoFilterBar({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todo_sample/models/todo.dart';
-import 'package:todo_sample/views/todo_filter_bar.dart';
-import 'package:todo_sample/views/todo_list_view.dart';
+import 'package:riverpod_todo_sample/models/todo.dart';
+import 'package:riverpod_todo_sample/views/todo_filter_bar.dart';
+import 'package:riverpod_todo_sample/views/todo_list_view.dart';
 
 class TodoPage extends ConsumerStatefulWidget {
   const TodoPage({super.key});

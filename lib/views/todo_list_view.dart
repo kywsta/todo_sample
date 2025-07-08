@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:todo_sample/models/todo.dart';
+import 'package:riverpod_todo_sample/models/todo.dart';
 
 part 'todo_list_view.g.dart';
 

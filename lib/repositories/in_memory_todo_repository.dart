@@ -1,5 +1,5 @@
-import 'package:todo_sample/models/todo.dart';
-import 'package:todo_sample/repositories/todo_repository.dart';
+import 'package:riverpod_todo_sample/models/todo.dart';
+import 'package:riverpod_todo_sample/repositories/todo_repository.dart';
 import 'package:uuid/uuid.dart';
 
 class InMemoryTodoRepository extends TodoRepository {

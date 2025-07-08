@@ -1,3 +1,3 @@
-# todo_sample
+# riverpod_todo_sample
 
 A new Flutter project.

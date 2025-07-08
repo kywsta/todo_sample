@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todo_sample/views/todo_page.dart';
+import 'package:riverpod_todo_sample/views/todo_page.dart';
 
 void main() {
   runApp(
