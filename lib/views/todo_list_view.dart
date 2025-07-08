@@ -13,31 +13,26 @@ class TodoListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final todoList = ref.watch(todoListProvider);
+    final todos = ref.watch(filteredTodosProvider);
 
-    return todoList.when(
-      data: (todos) => ListView.builder(
-        itemCount: todos.length,
-        itemBuilder: (context, index) {
-          debugPrint("Building: ${todos[index].title}");
+    return ListView.builder(
+      itemCount: todos.length,
+      itemBuilder: (context, index) {
+        debugPrint("Building: ${todos[index].title}");
 
-          return Dismissible(
-            key: ValueKey(todos[index].id),
-            onDismissed: (direction) {
-              ref.read(todoListProvider.notifier).removeTodo(todos[index].id);
-            },
-            child: ProviderScope(
-              overrides: [
-                _currentTodoProvider.overrideWithValue(todos[index]),
-              ],
-              child: const TodoListTile(),
-            ),
-          );
-        },
-      ),
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) =>
-          Center(child: Text("Oops! Something went wrong.")),
+        return Dismissible(
+          key: ValueKey(todos[index].id),
+          onDismissed: (direction) {
+            ref.read(todoListProvider.notifier).removeTodo(todos[index].id);
+          },
+          child: ProviderScope(
+            overrides: [
+              _currentTodoProvider.overrideWithValue(todos[index]),
+            ],
+            child: const TodoListTile(),
+          ),
+        );
+      },
     );
   }
 }
@@ -52,7 +47,9 @@ class TodoListTile extends ConsumerWidget {
     debugPrint("Building List Tile: ${todo.title}");
 
     return Material(
+      color: Colors.transparent,
       child: ListTile(
+        contentPadding: EdgeInsets.zero,
         title: Text(todo.title),
         leading: Checkbox(
           value: todo.isDone,

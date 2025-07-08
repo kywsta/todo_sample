@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:todo_sample/repositories/todo_repository.dart';
 
@@ -39,6 +40,7 @@ class TodoList extends _$TodoList {
   @override
   Future<List<Todo>> build() async {
     final todoRepository = ref.watch(todoRepositoryProvider);
+
     return await todoRepository.loadTodos();
   }
 
@@ -47,6 +49,8 @@ class TodoList extends _$TodoList {
     await todoRepository.addTodo(title);
 
     ref.invalidateSelf();
+
+    await future;
   }
 
   Future<void> toggleTodo(String id) async {
@@ -54,6 +58,8 @@ class TodoList extends _$TodoList {
     await todoRepository.toggleTodo(id);
 
     ref.invalidateSelf();
+
+    await future;
   }
 
   Future<void> updateTodo(Todo todo) async {
@@ -61,6 +67,8 @@ class TodoList extends _$TodoList {
     await todoRepository.updateTodo(todo);
 
     ref.invalidateSelf();
+
+    await future;
   }
 
   Future<void> removeTodo(String id) async {
@@ -68,5 +76,57 @@ class TodoList extends _$TodoList {
     await todoRepository.removeTodo(id);
 
     ref.invalidateSelf();
+
+    await future;
+  }
+}
+
+enum TodoFilterType {
+  all,
+  active,
+  completed,
+}
+
+@riverpod
+class TodoFilter extends _$TodoFilter {
+  @override
+  TodoFilterType build() => TodoFilterType.all;
+
+  void setFilter(TodoFilterType filter) {
+    state = filter;
+  }
+}
+
+@riverpod
+List<Todo> filteredTodos(Ref ref) {
+  final filter = ref.watch(todoFilterProvider);
+  final todoList = ref.watch(todoListProvider);
+
+  return todoList.when(
+    data: (todos) {
+      switch (filter) {
+        case TodoFilterType.all:
+          return todos;
+        case TodoFilterType.active:
+          return todos.where((todo) => !todo.isDone).toList();
+        case TodoFilterType.completed:
+          return todos.where((todo) => todo.isDone).toList();
+      }
+    },
+    loading: () => todoList.valueOrNull ?? [],
+    error: (error, stackTrace) {
+      debugPrint("Error: $error");
+      return [];
+    },
+  );
+}
+
+@riverpod
+int uncompletedTodoCount(Ref ref) {
+  try {
+    final todoList = ref.watch(todoListProvider).requireValue;
+    return todoList.where((todo) => !todo.isDone).length;
+  } catch (e) {
+    return 0;
   }
 }
